@@ -1,0 +1,40 @@
+---
+interface Props {
+  compact?: boolean;
+  showPhone?: boolean;
+  onDark?: boolean;
+}
+
+const { compact = false, showPhone = false, onDark = false } = Astro.props;
+
+const wordColor = onDark ? '#ffffff' : '#232323';
+const subColor = onDark ? 'rgba(255,255,255,0.6)' : 'rgba(35,35,35,0.55)';
+const markSize = compact ? 34 : 46;
+const wordSize = compact ? 17 : 22;
+---
+
+<div aria-label="O.J. Carpentry" style="display:inline-flex;align-items:center;gap:10px;">
+  <img
+    src="/logo-mark.png"
+    alt="O.J. Carpentry"
+    width={markSize}
+    height={markSize}
+    style={`width:${markSize}px;height:${markSize}px;object-fit:contain;flex-shrink:0;`}
+  />
+  <span style="display:inline-flex;flex-direction:column;line-height:1;">
+    <span
+      style={`font-family:'Outfit',sans-serif;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:${wordColor};font-size:${wordSize}px;`}
+    >
+      O.J.<span style="color:#00a9a2;">Carpentry</span>
+    </span>
+    {showPhone ? (
+      <span style={`margin-top:6px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.14em;color:${subColor};`}>
+        07825 326494
+      </span>
+    ) : (
+      <span style={`margin-top:5px;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:${subColor};`}>
+        Narberth · Pembrokeshire
+      </span>
+    )}
+  </span>
+</div>

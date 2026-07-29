@@ -1,0 +1,631 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import LogoMark from '../components/LogoMark.astro';
+
+const TEAL = '#00a9a2';
+const TEAL_DARK = '#00807b';
+const CHARCOAL = '#232323';
+const OFFWHITE = '#f7f6f4';
+const WHITE = '#ffffff';
+
+const PHONE_DISPLAY = '07825 326494';
+const PHONE_HREF = 'tel:07825326494';
+const EMAIL = 'owen@ojcarpentry.co.uk';
+const FACEBOOK = 'https://www.facebook.com/O-J-Carpentry-1103888859639191/';
+
+const services = [
+  { name: 'Kitchen Fitting', icon: 'fa-kitchen-set', desc: 'Full kitchen installations, from layout and units through to worktops and final fix.' },
+  { name: 'Doors', icon: 'fa-door-open', desc: 'Internal and external doors hung square and true, including linings and ironmongery.' },
+  { name: 'Flooring', icon: 'fa-table-cells', desc: 'Solid, engineered and laminate flooring laid to a clean, level finish.' },
+  { name: 'Fencing', icon: 'fa-tree', desc: 'Garden and boundary fencing built to last against the Pembrokeshire weather.' },
+  { name: 'New Builds', icon: 'fa-house-chimney', desc: 'First and second fix carpentry on new build projects for developers and self-builders.' },
+  { name: 'Joinery', icon: 'fa-ruler-combined', desc: 'Made-to-measure joinery and bespoke timber work designed around your space.' },
+  { name: 'Skirting', icon: 'fa-ruler-horizontal', desc: 'Skirting boards cut, scribed and fitted with tight, seamless joints throughout.' },
+  { name: 'Architraves', icon: 'fa-vector-square', desc: 'Crisp architrave detailing around doors and openings to finish a room properly.' },
+  { name: 'Decking', icon: 'fa-layer-group', desc: 'Timber decking and outdoor structures built level, solid and ready to enjoy.' },
+  { name: 'Conversions', icon: 'fa-screwdriver-wrench', desc: 'Loft, garage and space conversions handled with full carpentry throughout.' },
+];
+
+// Gallery is photo-ready: drop a real `src` onto an item and it becomes a
+// clickable lightbox image. Items without a `src` render as labelled placeholders.
+const galleryItems = [
+  { src: null, alt: 'Kitchen fitting project', caption: 'Kitchen Fitting', feature: true },
+  { src: null, alt: 'Bespoke joinery project', caption: 'Bespoke Joinery' },
+  { src: null, alt: 'Flooring installation', caption: 'Flooring' },
+  { src: null, alt: 'Decking build', caption: 'Decking' },
+  { src: null, alt: 'Door hanging and second fix', caption: 'Doors & Second Fix' },
+];
+
+const credentials = [
+  { icon: 'fa-award', label: 'Qualified 2011', detail: 'Professionally trained carpenter' },
+  { icon: 'fa-location-dot', label: 'Narberth Based', detail: 'Serving all of Pembrokeshire' },
+  { icon: 'fa-comments', label: 'Free Quotes', detail: 'No obligation, honest pricing' },
+];
+
+const navLinks = [
+  ['About', '#about'],
+  ['Work', '#work'],
+  ['Services', '#services'],
+  ['Reviews', '#reviews'],
+  ['Find Us', '#find-us'],
+  ['Contact', '#contact'],
+];
+
+const currentYear = new Date().getFullYear();
+---
+<Layout>
+
+<!-- TOP BAR -->
+<div style={`background:${CHARCOAL};color:rgba(255,255,255,0.75);padding:9px 24px;display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;letter-spacing:0.04em;`}>
+  <span><i class="fa-solid fa-location-dot" style={`color:${TEAL};margin-right:7px;`} aria-hidden="true"></i>Narberth, Pembrokeshire</span>
+  <span style="opacity:0.3;">|</span>
+  <a href={PHONE_HREF} style="color:#ffffff;font-weight:600;text-decoration:none;">
+    <i class="fa-solid fa-phone" style={`color:${TEAL};margin-right:7px;`} aria-hidden="true"></i>{PHONE_DISPLAY}
+  </a>
+</div>
+
+<!-- NAV -->
+<nav id="site-nav" style={`position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(35,35,35,0.08);`}>
+  <div style="max-width:1280px;margin:0 auto;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;gap:24px;">
+    <a href="/" style="text-decoration:none;flex-shrink:0;" aria-label="O.J. Carpentry home">
+      <LogoMark compact />
+    </a>
+
+    <div id="nav-desktop" style="display:flex;align-items:center;gap:30px;">
+      {navLinks.map(([label, href]) => (
+        <a
+          href={href}
+          class="nav-link"
+          style={`font-size:14px;font-weight:500;color:rgba(35,35,35,0.7);text-decoration:none;transition:color 0.2s;`}
+        >{label}</a>
+      ))}
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <a href={PHONE_HREF} id="nav-cta" class="btn-teal" style="padding:12px 22px;font-size:13px;">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>{PHONE_DISPLAY}
+      </a>
+      <button
+        id="hamburger"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        style={`background:none;border:1px solid rgba(35,35,35,0.18);border-radius:6px;padding:10px 12px;cursor:pointer;display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;min-width:44px;min-height:44px;`}
+      >
+        <span style={`display:block;width:18px;height:2px;background:${CHARCOAL};`}></span>
+        <span style={`display:block;width:18px;height:2px;background:${CHARCOAL};`}></span>
+        <span style={`display:block;width:18px;height:2px;background:${CHARCOAL};`}></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" style={`display:none;flex-direction:column;background:${WHITE};border-bottom:1px solid rgba(35,35,35,0.08);`}>
+    {navLinks.map(([label, href]) => (
+      <a
+        href={href}
+        class="mobile-link"
+        style="font-size:15px;font-weight:500;color:rgba(35,35,35,0.8);text-decoration:none;padding:16px 32px;border-top:1px solid rgba(35,35,35,0.06);"
+      >{label}</a>
+    ))}
+    <a href={PHONE_HREF} class="mobile-link" style={`font-size:15px;font-weight:700;color:${TEAL};text-decoration:none;padding:18px 32px;border-top:1px solid rgba(35,35,35,0.06);`}>
+      Call {PHONE_DISPLAY}
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style={`background:${OFFWHITE};padding:88px 32px 96px;`}>
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.05fr 0.95fr;gap:72px;align-items:center;">
+    <div id="hero-copy">
+      <p class="eyebrow" style="margin-bottom:20px;">Carpenter · Narberth · Pembrokeshire</p>
+      <h1 style="font-size:clamp(42px,5.6vw,72px);font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-bottom:24px;">
+        Carpentry done<br />
+        <span style={`color:${TEAL};`}>properly</span>, by hand.
+      </h1>
+      <p class="lede" style="max-width:520px;margin-bottom:32px;">
+        O.J. Carpentry is run by Owen James — a fully trained and qualified carpenter serving
+        Narberth and the wider Pembrokeshire area. From kitchen fitting and joinery to decking,
+        flooring and full conversions.
+      </p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px;">
+        <a href={PHONE_HREF} class="btn-teal">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>Get a Free Quote
+        </a>
+        <a href="#work" class="btn-outline">View Our Work</a>
+      </div>
+
+      <div id="hero-creds" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:560px;">
+        {credentials.map((c) => (
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <i class={`fa-solid ${c.icon}`} style={`color:${TEAL};font-size:17px;`} aria-hidden="true"></i>
+            <span style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;">{c.label}</span>
+            <span style="font-size:12px;line-height:1.55;color:rgba(35,35,35,0.55);">{c.detail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div id="hero-visual" style="position:relative;">
+      <div class="placeholder-tile" style="aspect-ratio:4/5;width:100%;">
+        <i class="fa-solid fa-camera" style={`color:${TEAL};font-size:26px;`} aria-hidden="true"></i>
+        <span class="ph-label">Placeholder</span>
+        <span class="ph-note">src/assets/images/PLACEHOLDER — hero project photo incoming</span>
+      </div>
+      <div style={`position:absolute;left:-18px;bottom:34px;background:${WHITE};border:1px solid rgba(35,35,35,0.08);border-radius:10px;box-shadow:0 18px 40px rgba(35,35,35,0.09);padding:18px 22px;display:flex;align-items:center;gap:14px;`}>
+        <span style={`display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:rgba(0,169,162,0.12);color:${TEAL};flex-shrink:0;`}>
+          <i class="fa-solid fa-hammer" style="font-size:16px;" aria-hidden="true"></i>
+        </span>
+        <span style="display:flex;flex-direction:column;">
+          <strong style="font-family:'Outfit',sans-serif;font-size:16px;">Owen James</strong>
+          <span style="font-size:12px;color:rgba(35,35,35,0.55);">Qualified carpenter since 2011</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT OWEN -->
+<section id="about" style={`background:${WHITE};padding:104px 32px;border-top:1px solid rgba(35,35,35,0.07);`}>
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:0.85fr 1.15fr;gap:72px;align-items:center;">
+    <div class="reveal" style="position:relative;">
+      <div class="placeholder-tile" style="aspect-ratio:1/1;width:100%;">
+        <i class="fa-solid fa-user" style={`color:${TEAL};font-size:26px;`} aria-hidden="true"></i>
+        <span class="ph-label">Placeholder</span>
+        <span class="ph-note">src/assets/images/PLACEHOLDER — photo of Owen incoming</span>
+      </div>
+      <span style={`position:absolute;top:-14px;right:-14px;background:${TEAL};color:${WHITE};font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:11px 18px;border-radius:8px;`}>
+        Est. 2011
+      </span>
+    </div>
+
+    <div class="reveal">
+      <p class="eyebrow" style="margin-bottom:16px;">About Owen</p>
+      <h2 class="section-title" style="margin-bottom:26px;">
+        A qualified carpenter who takes pride in every job.
+      </h2>
+      <p class="lede" style="margin-bottom:20px;">
+        O.J. Carpentry is run by Owen James, a fully trained and qualified carpenter. Owen first
+        began woodworking at 18 and completed his professional training in 2011.
+      </p>
+      <p class="lede" style="margin-bottom:34px;">
+        Since then he's built a strong reputation across the Pembrokeshire area. O.J. Carpentry
+        takes great pride in the quality of its work and in the relationships built with every
+        client along the way.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+        {[
+          ['fa-graduation-cap', 'Fully Qualified', 'Trained and certified in 2011'],
+          ['fa-handshake', 'Client First', 'Built on trust and repeat work'],
+          ['fa-screwdriver-wrench', 'All Aspects', 'Domestic and commercial carpentry'],
+        ].map(([icon, title, sub]) => (
+          <div style={`background:${OFFWHITE};border:1px solid rgba(35,35,35,0.07);border-radius:10px;padding:20px 18px;`}>
+            <i class={`fa-solid ${icon}`} style={`color:${TEAL};font-size:18px;margin-bottom:12px;display:block;`} aria-hidden="true"></i>
+            <p style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;margin-bottom:5px;">{title}</p>
+            <p style="font-size:12px;line-height:1.6;color:rgba(35,35,35,0.55);">{sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK / GALLERY -->
+<section id="work" style={`background:${OFFWHITE};padding:104px 32px;border-top:1px solid rgba(35,35,35,0.07);`}>
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:44px;">
+      <div>
+        <p class="eyebrow" style="margin-bottom:16px;">Recent Work</p>
+        <h2 class="section-title" style="margin-bottom:14px;">Projects across Pembrokeshire</h2>
+        <p class="lede" style="max-width:560px;">
+          A look at recent kitchen fitting, joinery, flooring and decking work. Photographs of
+          completed projects are being added shortly.
+        </p>
+      </div>
+      <a href="#contact" class="btn-outline">Start Your Project</a>
+    </div>
+
+    <div id="gallery-grid" style="display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:14px;">
+      {galleryItems.map((item, i) => (
+        <div
+          style={`grid-column:span ${item.feature ? 2 : 1};grid-row:span ${item.feature ? 2 : 1};`}
+          class="reveal gallery-cell"
+        >
+          {item.src ? (
+            <button
+              type="button"
+              class="gallery-trigger"
+              data-index={i}
+              style="width:100%;height:100%;padding:0;border:none;background:none;cursor:pointer;position:relative;overflow:hidden;border-radius:10px;display:block;"
+            >
+              <img src={item.src} alt={item.alt} style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />
+              <span style={`position:absolute;left:14px;bottom:14px;background:${WHITE};color:${CHARCOAL};font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:7px 12px;border-radius:5px;`}>
+                {item.caption}
+              </span>
+            </button>
+          ) : (
+            <div class="placeholder-tile" style="width:100%;height:100%;">
+              <i class="fa-solid fa-image" style={`color:${TEAL};font-size:24px;`} aria-hidden="true"></i>
+              <span class="ph-label">{item.caption}</span>
+              <span class="ph-note">src/assets/images/PLACEHOLDER — project photos incoming</span>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+  <button id="lightbox-close" type="button" style="position:absolute;top:24px;right:24px;background:none;border:none;color:rgba(255,255,255,0.85);font-size:34px;cursor:pointer;line-height:1;" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<!-- SERVICES -->
+<section id="services" style={`background:${WHITE};padding:104px 32px;border-top:1px solid rgba(35,35,35,0.07);`}>
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 52px;">
+      <p class="eyebrow" style="margin-bottom:16px;">What We Do</p>
+      <h2 class="section-title" style="margin-bottom:16px;">All aspects of carpentry</h2>
+      <p class="lede">
+        Ten core services covering everything from a single door to a full conversion — for
+        homeowners, builders and commercial clients across Pembrokeshire.
+      </p>
+    </div>
+
+    <div id="services-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      {services.map((s) => (
+        <div
+          class="reveal service-card"
+          style={`background:${OFFWHITE};border:1px solid rgba(35,35,35,0.07);border-radius:12px;padding:30px 26px;transition:border-color 0.25s ease,transform 0.25s ease,box-shadow 0.25s ease;`}
+        >
+          <span style={`display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:12px;background:rgba(0,169,162,0.12);color:${TEAL};margin-bottom:20px;`}>
+            <i class={`fa-solid ${s.icon}`} style="font-size:20px;" aria-hidden="true"></i>
+          </span>
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-0.01em;margin-bottom:9px;">{s.name}</h3>
+          <p style="font-size:14px;line-height:1.72;color:rgba(35,35,35,0.6);">{s.desc}</p>
+        </div>
+      ))}
+
+      <div
+        class="reveal"
+        style={`background:${TEAL};border-radius:12px;padding:30px 26px;display:flex;flex-direction:column;justify-content:space-between;color:${WHITE};`}
+      >
+        <div>
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,0.18);margin-bottom:20px;">
+            <i class="fa-solid fa-comment-dots" style="font-size:20px;" aria-hidden="true"></i>
+          </span>
+          <h3 style="font-size:20px;font-weight:600;margin-bottom:9px;">Something else?</h3>
+          <p style="font-size:14px;line-height:1.72;color:rgba(255,255,255,0.85);">
+            If it involves timber, ask. Owen will talk you through the options and quote it honestly.
+          </p>
+        </div>
+        <a
+          href={PHONE_HREF}
+          style={`margin-top:26px;display:inline-flex;align-items:center;gap:9px;background:${WHITE};color:${TEAL_DARK};font-size:13px;font-weight:600;padding:13px 20px;border-radius:6px;text-decoration:none;width:fit-content;`}
+        >
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>Call {PHONE_DISPLAY}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style={`background:${OFFWHITE};padding:104px 32px;border-top:1px solid rgba(35,35,35,0.07);`}>
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;max-width:620px;margin:0 auto 40px;">
+      <p class="eyebrow" style="margin-bottom:16px;">Client Feedback</p>
+      <h2 class="section-title" style="margin-bottom:16px;">Reviews</h2>
+      <p class="lede">
+        Owen has built a strong reputation across Pembrokeshire on the strength of his work and
+        repeat business. Verified client reviews are being collected and will appear here shortly.
+      </p>
+    </div>
+
+    <div id="reviews-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      {[0, 1, 2].map(() => (
+        <div class="reveal placeholder-tile" style="min-height:220px;align-items:flex-start;text-align:left;">
+          <i class="fa-solid fa-quote-left" style={`color:${TEAL};font-size:20px;`} aria-hidden="true"></i>
+          <span class="ph-label">Review slot</span>
+          <span class="ph-note" style="max-width:100%;">Awaiting verified client review — content incoming.</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FIND US -->
+<section id="find-us" style={`background:${WHITE};padding:104px 32px;border-top:1px solid rgba(35,35,35,0.07);`}>
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+    <div class="reveal">
+      <p class="eyebrow" style="margin-bottom:16px;">Find Us</p>
+      <h2 class="section-title" style="margin-bottom:16px;">Based in Narberth</h2>
+      <p class="lede" style="margin-bottom:36px;">
+        O.J. Carpentry works with domestic and commercial clients throughout Narberth and the
+        wider Pembrokeshire area.
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:22px;margin-bottom:32px;">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <span style={`display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:rgba(0,169,162,0.12);color:${TEAL};flex-shrink:0;`}>
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          </span>
+          <p style="font-size:15px;line-height:1.75;color:rgba(35,35,35,0.75);">
+            <strong style={`display:block;color:${CHARCOAL};font-family:'Outfit',sans-serif;`}>O.J. Carpentry</strong>
+            25 Redstone Court<br />
+            Narberth, Pembrokeshire<br />
+            SA67 7EU
+          </p>
+        </div>
+
+        <div style="display:flex;gap:16px;align-items:center;">
+          <span style={`display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:rgba(0,169,162,0.12);color:${TEAL};flex-shrink:0;`}>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          </span>
+          <a href={PHONE_HREF} style={`font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;color:${TEAL};text-decoration:none;`}>{PHONE_DISPLAY}</a>
+        </div>
+
+        <div style="display:flex;gap:16px;align-items:center;">
+          <span style={`display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:rgba(0,169,162,0.12);color:${TEAL};flex-shrink:0;`}>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          </span>
+          <a href={`mailto:${EMAIL}`} style="font-size:15px;color:rgba(35,35,35,0.75);text-decoration:none;">{EMAIL}</a>
+        </div>
+      </div>
+
+      <a
+        href={FACEBOOK}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="O.J. Carpentry on Facebook"
+        style={`display:inline-flex;align-items:center;gap:11px;background:${OFFWHITE};border:1px solid rgba(35,35,35,0.1);border-radius:8px;padding:13px 20px;color:${CHARCOAL};font-size:14px;font-weight:600;text-decoration:none;transition:border-color 0.25s ease;`}
+      >
+        <i class="fa-brands fa-facebook" style={`color:${TEAL};font-size:19px;`} aria-hidden="true"></i>
+        Follow on Facebook
+      </a>
+    </div>
+
+    <div class="reveal" style="overflow:hidden;border-radius:12px;border:1px solid rgba(35,35,35,0.1);">
+      <iframe
+        title="O.J. Carpentry — Narberth, Pembrokeshire on Google Maps"
+        src="https://maps.google.com/maps?q=25+Redstone+Court,+Narberth,+Pembrokeshire,+SA67+7EU&output=embed"
+        width="100%"
+        height="460"
+        style="border:0;display:block;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style={`background:${OFFWHITE};padding:104px 32px;border-top:1px solid rgba(35,35,35,0.07);`}>
+  <div style="max-width:720px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:40px;">
+      <p class="eyebrow" style="margin-bottom:16px;">Get In Touch</p>
+      <h2 class="section-title" style="margin-bottom:16px;">Request a free quote</h2>
+      <p class="lede">
+        Send over a few details about your project and Owen will get back to you with an honest,
+        no-obligation quote.
+      </p>
+    </div>
+
+    <form
+      class="reveal"
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      style={`background:${WHITE};border:1px solid rgba(35,35,35,0.08);border-radius:14px;padding:34px;display:flex;flex-direction:column;gap:14px;`}
+    >
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY" />
+      <input type="hidden" name="subject" value="New Quote Request - O.J. Carpentry" />
+
+      <div id="contact-row" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <input class="field" type="text" name="name" placeholder="Your name" required />
+        <input class="field" type="tel" name="phone" placeholder="Phone number" />
+      </div>
+      <input class="field" type="email" name="email" placeholder="Email address" required />
+      <input class="field" type="text" name="service" placeholder="Service required (kitchen fitting, decking, joinery…)" />
+      <textarea class="field" name="message" rows="5" placeholder="Tell us about your project…"></textarea>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;">
+        <button type="submit" class="btn-teal" style="flex:1;min-width:200px;">Send Message</button>
+        <a href={PHONE_HREF} class="btn-outline">Call {PHONE_DISPLAY}</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style={`background:${CHARCOAL};color:rgba(255,255,255,0.62);padding:56px 32px 30px;`}>
+  <div style="max-width:1280px;margin:0 auto;">
+    <div id="footer-top" style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:44px;padding-bottom:38px;border-bottom:1px solid rgba(255,255,255,0.1);">
+      <div>
+        <div style={`background:${WHITE};border-radius:10px;padding:12px 16px;display:inline-flex;margin-bottom:20px;`}>
+          <LogoMark compact showPhone />
+        </div>
+        <p style="font-size:14px;line-height:1.8;max-width:340px;">
+          Qualified carpenter based in Narberth, covering all aspects of carpentry for domestic
+          and commercial clients across Pembrokeshire.
+        </p>
+      </div>
+
+      <div>
+        <p style={`font-family:'Outfit',sans-serif;color:${WHITE};font-size:15px;font-weight:600;margin-bottom:16px;`}>Explore</p>
+        <div style="display:flex;flex-direction:column;gap:11px;">
+          {navLinks.map(([label, href]) => (
+            <a href={href} style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;">{label}</a>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p style={`font-family:'Outfit',sans-serif;color:${WHITE};font-size:15px;font-weight:600;margin-bottom:16px;`}>Contact</p>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
+          <span>25 Redstone Court, Narberth,<br />Pembrokeshire, SA67 7EU</span>
+          <a href={PHONE_HREF} style={`color:${TEAL};font-weight:600;text-decoration:none;`}>{PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`} style="color:rgba(255,255,255,0.6);text-decoration:none;">{EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="color:rgba(255,255,255,0.6);text-decoration:none;display:inline-flex;align-items:center;gap:9px;">
+            <i class="fa-brands fa-facebook" style={`color:${TEAL};font-size:17px;`} aria-hidden="true"></i>Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;font-size:12px;color:rgba(255,255,255,0.38);text-align:center;">
+      © {currentYear} O.J. Carpentry (Owen James Carpentry) · Narberth, Pembrokeshire
+    </p>
+  </div>
+</footer>
+
+<style>
+  .nav-link:hover { color: #00a9a2 !important; }
+  .mobile-link:hover { background: rgba(0,169,162,0.06); }
+  .service-card:hover {
+    border-color: rgba(0,169,162,0.45) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(35,35,35,0.07);
+  }
+  .gallery-trigger img { transition: transform 0.6s ease; }
+  .gallery-trigger:hover img { transform: scale(1.05); }
+
+  .field {
+    width: 100%;
+    background: #f7f6f4;
+    border: 1px solid rgba(35,35,35,0.12);
+    border-radius: 8px;
+    color: #232323;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 15px 17px;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .field::placeholder { color: rgba(35,35,35,0.42); }
+  .field:focus { border-color: #00a9a2; background: #ffffff; }
+  textarea.field { resize: vertical; }
+
+  @media (max-width: 1024px) {
+    #hero > div { grid-template-columns: 1fr !important; gap: 48px !important; }
+    #about > div { grid-template-columns: 1fr !important; gap: 44px !important; }
+    #find-us > div { grid-template-columns: 1fr !important; gap: 36px !important; }
+    #services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    #reviews-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    #gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    #footer-top { grid-template-columns: 1fr 1fr !important; }
+  }
+
+  @media (max-width: 768px) {
+    #nav-desktop { display: none !important; }
+    #nav-cta { display: none !important; }
+    #hamburger { display: flex !important; }
+    nav > div:first-child { padding: 0 18px !important; height: 68px !important; }
+    section { padding-left: 20px !important; padding-right: 20px !important; }
+    #services-grid { grid-template-columns: 1fr !important; }
+    #reviews-grid { grid-template-columns: 1fr !important; }
+    #gallery-grid { grid-template-columns: 1fr !important; grid-auto-rows: 240px !important; }
+    #gallery-grid > .gallery-cell { grid-column: span 1 !important; grid-row: span 1 !important; }
+    #hero-creds { grid-template-columns: 1fr !important; gap: 20px !important; }
+    #contact-row { grid-template-columns: 1fr !important; }
+    #footer-top { grid-template-columns: 1fr !important; gap: 32px !important; }
+    #about > div > div:first-child { max-width: 340px; }
+  }
+</style>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function setMenu(open: boolean) {
+    if (!mobileMenu || !hamburger) return;
+    mobileMenu.style.display = open ? 'flex' : 'none';
+    hamburger.setAttribute('aria-expanded', String(open));
+  }
+
+  hamburger?.addEventListener('click', () => {
+    setMenu(mobileMenu?.style.display !== 'flex');
+  });
+
+  document.querySelectorAll('.mobile-link').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+
+  // Gallery lightbox — binds only to items that have a real image.
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('.gallery-trigger'));
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+
+  triggers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const img = btn.querySelector('img');
+      if (!lightbox || !lightboxImg || !img) return;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+    });
+  });
+
+  document.getElementById('lightbox-close')?.addEventListener('click', () => {
+    lightbox?.classList.remove('open');
+  });
+
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('open');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox?.classList.remove('open');
+  });
+</script>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import Lenis from '@studio-freight/lenis';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    gsap.from('#hero-copy > *', {
+      opacity: 0,
+      y: 26,
+      duration: 0.85,
+      stagger: 0.1,
+      ease: 'power3.out',
+      delay: 0.15,
+    });
+
+    gsap.from('#hero-visual', {
+      opacity: 0,
+      y: 34,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.35,
+    });
+
+    gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+      gsap.fromTo(
+        el,
+        { y: 32, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+        },
+      );
+    });
+  }
+</script>
+
+</Layout>

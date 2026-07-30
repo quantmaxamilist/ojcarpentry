@@ -16,7 +16,6 @@ import pergolaA1 from '../assets/images/PergolaA1.jpg';
 import pergolaA2 from '../assets/images/PergolaA2.jpg';
 import pergolaA3 from '../assets/images/PergolaA3.jpg';
 import pergolaA4 from '../assets/images/PergolaA4.jpg';
-import vanA1 from '../assets/images/VanA1.jpg';
 
 export interface Photo {
   image: ImageMetadata;
@@ -31,11 +30,9 @@ export interface Category {
   photos: Photo[];
 }
 
-export const van: Photo = {
-  image: vanA1,
-  alt: 'The O.J. Carpentry branded van, Narberth, Pembrokeshire',
-  caption: 'O.J. Carpentry',
-};
+// Full-bleed hero backdrop. AfterA1 is the only landscape shot in the set (1440x1104),
+// so it's the one that survives a wide crop without losing its subject.
+export const heroBackground: ImageMetadata = afterA1;
 
 export const beforeAfter = {
   before: {
@@ -107,6 +104,6 @@ export const highlights: Photo[] = [
   { image: kitchena5, alt: 'Open-plan kitchen with breakfast bar seating, integrated ovens and tongue-and-groove panelling', caption: 'Joinery & Panelling' },
 ];
 
-// Portrait for the About section. Left null until a real headshot of Owen exists —
-// setting a Photo here restores the section's two-column image layout on its own.
+// Portrait for the About section. Setting this to null collapses the section to a
+// centred single column; setting a Photo restores the two-column image layout.
 export const aboutPhoto: Photo | null = null;

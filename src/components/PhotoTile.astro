@@ -1,0 +1,88 @@
+---
+import { getImage } from 'astro:assets';
+import type { Photo } from '../data/gallery';
+
+interface Props {
+  photo: Photo;
+  /** CSS aspect-ratio for a uniform grid cell. Omit to keep the photo's natural shape. */
+  ratio?: string;
+  /** Rendered width used to pick the optimised thumbnail size. */
+  width?: number;
+  eager?: boolean;
+  showCaption?: boolean;
+  class?: string;
+}
+
+const {
+  photo,
+  ratio,
+  width = 900,
+  eager = false,
+  showCaption = true,
+  class: className = '',
+} = Astro.props;
+
+const thumb = await getImage({ src: photo.image, width, format: 'webp', quality: 78 });
+// Source photos are already lossy, so a high re-encode quality can exceed the original
+// file size for no visible gain.
+const full = await getImage({
+  src: photo.image,
+  width: Math.min(photo.image.width, 1600),
+  format: 'webp',
+  quality: 68,
+});
+---
+
+<button
+  type="button"
+  class={`gallery-trigger ${className}`}
+  data-full={full.src}
+  data-alt={photo.alt}
+  aria-label={`View larger image: ${photo.alt}`}
+  style={`position:relative;display:block;width:100%;padding:0;border:none;background:none;cursor:zoom-in;overflow:hidden;border-radius:10px;${ratio ? `aspect-ratio:${ratio};` : ''}`}
+>
+  <img
+    src={thumb.src}
+    alt={photo.alt}
+    width={thumb.attributes.width ?? photo.image.width}
+    height={thumb.attributes.height ?? photo.image.height}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    style={`display:block;width:100%;${ratio ? 'height:100%;object-fit:cover;' : 'height:auto;'}`}
+  />
+  <span class="tile-veil" aria-hidden="true"></span>
+  {showCaption && (
+    <span class="tile-caption">{photo.caption}</span>
+  )}
+</button>
+
+<style>
+  .gallery-trigger .tile-veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(35, 35, 35, 0.55) 0%, transparent 46%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .gallery-trigger img { transition: transform 0.6s ease; }
+  .gallery-trigger:hover img,
+  .gallery-trigger:focus-visible img { transform: scale(1.045); }
+  .gallery-trigger:hover .tile-veil,
+  .gallery-trigger:focus-visible .tile-veil { opacity: 1; }
+
+  .tile-caption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    background: #ffffff;
+    color: #232323;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 5px;
+    pointer-events: none;
+  }
+</style>

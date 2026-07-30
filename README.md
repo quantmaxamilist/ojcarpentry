@@ -24,10 +24,22 @@ Type: **Outfit** for headings, **Inter** for body.
 - **Email** — owen@ojcarpentry.co.uk
 - **Facebook** — https://www.facebook.com/O-J-Carpentry-1103888859639191/
 
+## Pages
+
+- `/` — homepage, with a curated six-photo highlight reel linking through to the gallery
+- `/gallery` — full gallery, filtered by category with a lightbox
+
+## Photos
+
+Project photos live in `src/assets/images/` and are catalogued in `src/data/gallery.ts`,
+which is the single source of truth for both pages. To add a photo, drop the file in and
+add an entry (image, alt, caption) to the relevant category — Astro handles the optimised
+`webp` output and the lightbox picks it up automatically.
+
 ## Outstanding content
 
-Project photos and client reviews are placeholders pending real content. See
-`src/assets/images/PLACEHOLDER.md` for where each one slots in.
+Client reviews are still placeholders — the `#reviews` section on the homepage renders
+three empty slots until real, verified reviews arrive. Nothing there is fabricated.
 
 The contact form posts to Web3Forms — replace `YOUR_WEB3FORMS_KEY` in
 `src/pages/index.astro` with the live access key before launch.

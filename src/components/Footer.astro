@@ -1,0 +1,98 @@
+---
+import LogoMark from './LogoMark.astro';
+import { ADDRESS, EMAIL, NAV_LINKS, PHONE_DISPLAY, PHONE_HREF, SOCIALS } from '../data/site';
+
+const TEAL = '#00a9a2';
+const CHARCOAL = '#232323';
+const WHITE = '#ffffff';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer style={`background:${CHARCOAL};color:rgba(255,255,255,0.62);padding:56px 32px 30px;`}>
+  <div style="max-width:1280px;margin:0 auto;">
+    <div id="footer-top" style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:44px;padding-bottom:38px;border-bottom:1px solid rgba(255,255,255,0.1);">
+      <div>
+        <div style={`background:${WHITE};border-radius:10px;padding:12px 16px;display:inline-flex;margin-bottom:20px;`}>
+          <LogoMark compact showPhone />
+        </div>
+        <p style="font-size:14px;line-height:1.8;max-width:340px;margin-bottom:22px;">
+          Qualified carpenter based in Narberth, covering all aspects of carpentry for domestic
+          and commercial clients across Pembrokeshire.
+        </p>
+        <div style="display:flex;gap:10px;">
+          {SOCIALS.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-magnetic
+              aria-label={`O.J. Carpentry on ${s.name}`}
+              class="social-btn"
+            >
+              <i class={`fa-brands ${s.icon}`} aria-hidden="true"></i>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p style={`font-family:'Outfit',sans-serif;color:${WHITE};font-size:15px;font-weight:600;margin-bottom:16px;`}>Explore</p>
+        <div style="display:flex;flex-direction:column;gap:11px;">
+          {NAV_LINKS.map(([label, href]) => (
+            <a href={href} class="footer-link">{label}</a>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p style={`font-family:'Outfit',sans-serif;color:${WHITE};font-size:15px;font-weight:600;margin-bottom:16px;`}>Contact</p>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
+          <span>{ADDRESS.street}, {ADDRESS.locality},<br />{ADDRESS.region}, {ADDRESS.postcode}</span>
+          <a href={PHONE_HREF} style={`color:${TEAL};font-weight:600;text-decoration:none;`}>{PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`} class="footer-link">{EMAIL}</a>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;font-size:12px;color:rgba(255,255,255,0.38);text-align:center;">
+      © {currentYear} O.J. Carpentry (Owen James Carpentry) · Narberth, Pembrokeshire
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer-link {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .footer-link:hover { color: #00a9a2; }
+
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+  .social-btn:hover {
+    background: #00a9a2;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 1024px) {
+    #footer-top { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 768px) {
+    #footer-top { grid-template-columns: 1fr !important; gap: 32px !important; }
+  }
+</style>

@@ -1,8 +1,11 @@
 ﻿---
-interface Props { title?: string; description?: string; }
+import { ADDRESS, EMAIL, FACEBOOK, INSTAGRAM } from '../data/site';
+
+interface Props { title?: string; description?: string; canonical?: string; }
 const {
   title = "O.J. Carpentry | Carpenter Narberth | Kitchen Fitting & Joinery Pembrokeshire",
   description = "O.J. Carpentry — carpenter in Narberth, Pembrokeshire. Kitchen fitting, doors, flooring, decking, fencing, joinery and new builds. Run by Owen James, qualified since 2011. Call 07825 326494.",
+  canonical = new URL(Astro.url.pathname, 'https://ojcarpentry.co.uk').href,
 } = Astro.props;
 
 const services = [
@@ -27,14 +30,14 @@ const schemaLd = {
   description:
     "O.J. Carpentry is a carpenter based in Narberth, Pembrokeshire, run by Owen James. Services include kitchen fitting, doors, flooring, fencing, new builds, joinery, skirting, architraves, decking and conversions.",
   telephone: "+447825326494",
-  email: "owen@ojcarpentry.co.uk",
+  email: EMAIL,
   url: "https://ojcarpentry.co.uk",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "25 Redstone Court",
-    addressLocality: "Narberth",
-    addressRegion: "Pembrokeshire",
-    postalCode: "SA67 7EU",
+    streetAddress: ADDRESS.street,
+    addressLocality: ADDRESS.locality,
+    addressRegion: ADDRESS.region,
+    postalCode: ADDRESS.postcode,
     addressCountry: "GB",
   },
   geo: {
@@ -52,7 +55,7 @@ const schemaLd = {
     itemOffered: { "@type": "Service", name },
   })),
   priceRange: "££",
-  sameAs: ["https://www.facebook.com/O-J-Carpentry-1103888859639191/"],
+  sameAs: [FACEBOOK, INSTAGRAM],
 };
 ---
 <!DOCTYPE html>
@@ -64,11 +67,11 @@ const schemaLd = {
   <meta name="description" content={description} />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#00a9a2" />
-  <link rel="canonical" href="https://ojcarpentry.co.uk/" />
+  <link rel="canonical" href={canonical} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ojcarpentry.co.uk/" />
+  <meta property="og:url" content={canonical} />
   <meta property="og:locale" content="en_GB" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />

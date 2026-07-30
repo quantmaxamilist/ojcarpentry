@@ -1,0 +1,131 @@
+---
+import LogoMark from './LogoMark.astro';
+import { NAV_LINKS, PHONE_DISPLAY, PHONE_HREF } from '../data/site';
+
+const TEAL = '#00a9a2';
+const CHARCOAL = '#232323';
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => href.startsWith('/#') ? false : href.replace(/\/$/, '') === currentPath;
+---
+
+<!-- TOP BAR -->
+<div style={`background:${CHARCOAL};color:rgba(255,255,255,0.75);padding:9px 24px;display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;letter-spacing:0.04em;`}>
+  <span><i class="fa-solid fa-location-dot" style={`color:${TEAL};margin-right:7px;`} aria-hidden="true"></i>Narberth, Pembrokeshire</span>
+  <span style="opacity:0.3;">|</span>
+  <a href={PHONE_HREF} style="color:#ffffff;font-weight:600;text-decoration:none;">
+    <i class="fa-solid fa-phone" style={`color:${TEAL};margin-right:7px;`} aria-hidden="true"></i>{PHONE_DISPLAY}
+  </a>
+</div>
+
+<!-- NAV -->
+<nav id="site-nav" style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(35,35,35,0.08);">
+  <div style="max-width:1280px;margin:0 auto;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;gap:24px;">
+    <a href="/" style="text-decoration:none;flex-shrink:0;" aria-label="O.J. Carpentry home">
+      <LogoMark compact />
+    </a>
+
+    <div id="nav-desktop" style="display:flex;align-items:center;gap:26px;">
+      {NAV_LINKS.map(([label, href]) => (
+        <a
+          href={href}
+          class:list={['nav-link', { active: isActive(href) }]}
+          aria-current={isActive(href) ? 'page' : undefined}
+        >{label}</a>
+      ))}
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <a href={PHONE_HREF} id="nav-cta" class="btn-teal" style="padding:12px 22px;font-size:13px;">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>{PHONE_DISPLAY}
+      </a>
+      <button
+        id="hamburger"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        style="background:none;border:1px solid rgba(35,35,35,0.18);border-radius:6px;padding:10px 12px;cursor:pointer;display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;min-width:44px;min-height:44px;"
+      >
+        <span style={`display:block;width:18px;height:2px;background:${CHARCOAL};`}></span>
+        <span style={`display:block;width:18px;height:2px;background:${CHARCOAL};`}></span>
+        <span style={`display:block;width:18px;height:2px;background:${CHARCOAL};`}></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" style="display:none;flex-direction:column;background:#ffffff;border-bottom:1px solid rgba(35,35,35,0.08);">
+    {NAV_LINKS.map(([label, href]) => (
+      <a
+        href={href}
+        class:list={['mobile-link', { active: isActive(href) }]}
+        aria-current={isActive(href) ? 'page' : undefined}
+      >{label}</a>
+    ))}
+    <a href={PHONE_HREF} class="mobile-link" style={`font-weight:700;color:${TEAL};`}>
+      Call {PHONE_DISPLAY}
+    </a>
+  </div>
+</nav>
+
+<style>
+  .nav-link {
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(35, 35, 35, 0.7);
+    text-decoration: none;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: #00a9a2;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav-link:hover { color: #00a9a2; }
+  .nav-link:hover::after { transform: scaleX(1); }
+  .nav-link.active { color: #00a9a2; font-weight: 600; }
+  .nav-link.active::after { transform: scaleX(1); }
+
+  .mobile-link {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(35, 35, 35, 0.8);
+    text-decoration: none;
+    padding: 16px 32px;
+    border-top: 1px solid rgba(35, 35, 35, 0.06);
+  }
+  .mobile-link:hover { background: rgba(0, 169, 162, 0.06); }
+  .mobile-link.active { color: #00a9a2; font-weight: 600; }
+
+  @media (max-width: 900px) {
+    #nav-desktop { display: none !important; }
+    #nav-cta { display: none !important; }
+    #hamburger { display: flex !important; }
+    #site-nav > div:first-child { padding: 0 18px !important; height: 68px !important; }
+  }
+</style>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function setMenu(open: boolean) {
+    if (!mobileMenu || !hamburger) return;
+    mobileMenu.style.display = open ? 'flex' : 'none';
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  hamburger?.addEventListener('click', () => setMenu(mobileMenu?.style.display !== 'flex'));
+  document.querySelectorAll('.mobile-link').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+</script>
